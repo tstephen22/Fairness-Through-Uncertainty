@@ -17,10 +17,11 @@ def preprocess_data():
     features = ["age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation",
                 "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "salary"]
 
-    data_path = "./data/small_adult.data"
+    data_path = "./data/adult.data"
     input_data = pd.read_csv(data_path, names=features,
                              sep=r'\s*,\s*', engine='python', na_values="?")
-
+   # input_data = input_data[:len(input_data)//2] #Half list of values for now
+    print("\n>>Using ", len(input_data), " data points")
     # 2. Clean up dataset
     # Binary classification: 1 = >50K, 0 = <=50K
     y = (input_data['salary'] == '>50K').astype(int)
@@ -156,7 +157,7 @@ def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type)
 
     return max_diff, min_diff, avrg_diff
 
-def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, epsilon, type):
+def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type):
     differences = []
 
     if type == "DNN":
@@ -171,11 +172,11 @@ def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions,
             differences.append(difference)
 
     max_diff = max(differences)
-    thres_score = (epsilon - max_diff)/epsilon
+    thres_score = (delta - max_diff)/delta
     print("Threshold adjusted fairness score : ", thres_score)
     return thres_score
 
-def get_results(model, x_test, y_test, epsilon, type, display_text):
+def get_results(model, x_test, y_test, epsilon, delta, type, display_text):
     # Get predictions for x_test data (without attack)
     x_test_predictions = model.predict(x_test)
 
@@ -200,12 +201,12 @@ def get_results(model, x_test, y_test, epsilon, type, display_text):
     basic_score = get_fairness_score_basic(
         x_test_predictions, x_test_adversarial_predictions, type)
     
-    thres_score = threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, epsilon, type)
+    thres_score = threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type)
 
     max_diff, min_diff, avrg_diff = get_fairness_score(x_test_predictions,
                                                        x_test_adversarial_predictions, type)
 
-    return basic_score, max_diff, min_diff, avrg_diff, accuracy
+    return basic_score, max_diff, min_diff, delta, accuracy
 
 def trainModel(neurons, layers, x_train, y_train, x_test, y_test):
         input_shape = x_train.shape[1]
@@ -242,9 +243,9 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test):
 
 def main():
     x_train, x_test, y_train, y_test = preprocess_data()
-
+    delta = 1 
     # Try 0.00, 0.05, 0.10, 0.15, 0.20
-    epsilon = 0.20
+    epsilon = 0.15
 
     # Number of hidden layers in the model
     # layers = [1, 2, 3, 4, 5]
@@ -279,11 +280,11 @@ def main():
             #Train normal BNN, DNN network with no adversarial training 
             trained_model_BNN, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test)
 
-            basic_score_BNN, max_diff_BNN, min_diff_BNN, avrg_diff_BNN, accuracy_BNN = get_results(
-                trained_model_BNN, x_test, y_test, epsilon, "BNN", "BNN - Normal")
+            basic_score_BNN, max_diff_BNN, min_diff_BNN, delta_BNN_res, accuracy_BNN = get_results(
+                trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal")
             
             #Create adversarials
-            adversarials_BNN = get_adversarial_examples(trained_model_BNN, x_train, 0.2, "BNN")
+            adversarials_BNN = get_adversarial_examples(trained_model_BNN, x_train, epsilon, "BNN")
 
             #Concatenate onto training data 
             x_train_adv_BNN = np.concatenate([x_train, adversarials_BNN])
@@ -293,8 +294,8 @@ def main():
             trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train_adv_BNN, y_train_adv_BNN, x_test, y_test)
 
             #Get results 
-            basic_score_BNN_adv, max_diff_BNN_adv, min_diff_BNN_adv, avrg_diff_BNN_adv, accuracy_BNN_adv = get_results(
-                trained_model_BNN_adv, x_test, y_test, epsilon, "BNN", "BNN - With adversarial")
+            basic_score_BNN_adv, max_diff_BNN_adv, min_diff_BNN_adv, delta_BNN_adv_res, accuracy_BNN_adv = get_results(
+                trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - With adversarial")
 
             # Dummy data for debugging
             # accuracy_DNN = random.random()
@@ -309,7 +310,7 @@ def main():
             # avrg_diff_BNN = random.random()
 
             new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, basic_score_BNN, basic_score_BNN_adv, max_diff_BNN, max_diff_BNN_adv,
-                                    min_diff_BNN, min_diff_BNN_adv, avrg_diff_BNN, avrg_diff_BNN_adv], index=measurements, columns=[f"L{layer_num}N{neuron_num}"]).T
+                                    min_diff_BNN, min_diff_BNN_adv, delta_BNN_res, delta_BNN_adv_res], index=measurements, columns=[f"L{layer_num}N{neuron_num}"]).T
             df = pd.concat((df, new_row))
 
     # Pandas options to display all columns and rows
@@ -318,8 +319,8 @@ def main():
     # pd.set_option('display.max_rows', None)
     # np.set_printoptions(linewidth=100000)
 
-    #f = open(f"./final/results/trial_{datetime.now()}_eps_{epsilon}.csv", 'a')
-    #print(df, file=f)
+    f = open(f"./results/trial_{datetime.now()}_eps_{epsilon}.csv", 'a')
+    print(df, file=f)
 
 
 if __name__ == "__main__":

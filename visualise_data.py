@@ -17,7 +17,7 @@ def get_trial_means(df_list):
 
 def generate_heatmaps(df, epsilon):
     labels = ["BNN Accuracy", "BNN Adversary Accuracy", "BNN Basic Score", "BNN Adversary Basic Score",
-              "BNN Max Difference", "BNN Adversary Max Difference", "BNN Min Difference", "BNN Adversary Min Difference", "BNN Mean Difference", "BNN Adversary Mean Difference"]
+              "BNN Max Difference", "BNN Adversary Max Difference", "BNN Min Difference", "BNN Adversary Min Difference", "BNN Fairness Score", "BNN Adversary Fairness Score"]
 
     # Number of hidden layers in the model
     layers = [1, 2, 3]
