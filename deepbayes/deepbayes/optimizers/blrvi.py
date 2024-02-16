@@ -10,6 +10,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
+from BNN_FGSM import BNN_FGSM
 
 from tqdm import tqdm
 from tqdm import trange
@@ -30,9 +31,11 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
     # I set default params for each sub-optimizer but none for the super class for
     # pretty obvious reasons
     def compile(self, keras_model, loss_fn, batch_size=64, learning_rate=0.15, decay=0.0,
-                      epochs=10, prior_mean=-1, prior_var=-1, **kwargs):
+                      epochs=10, prior_mean=-1, prior_var=-1, fair_epsilons=[], **kwargs):
         super().compile(keras_model, loss_fn, batch_size, learning_rate, decay,
                       epochs, prior_mean, prior_var, **kwargs)
+
+        self.fair_epsilons = fair_epsilons
 
         # Now we get into the NoisyAdam specific enrichments to the class
         self.posti_mean = self.model.get_weights()
@@ -130,6 +133,15 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
                     eps = self.eps_dist.sample()
                     features_adv = analyzers.FGSM(self, features, self.attack_loss, eps=self.epsilon, num_models=-1)
                     worst_case = self.model(features_adv)
+                    output += (1.0/self.loss_monte_carlo) * worst_case
+                loss = self.loss_func(labels, output)
+
+            # Fair-FGSM
+            elif(int(self.robust_train) == 5):
+                output = tf.zeros(predictions.shape)
+                for _mc_ in range(self.loss_monte_carlo):
+                    adversarial = BNN_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
+                    worst_case = self.model(adversarial)
                     output += (1.0/self.loss_monte_carlo) * worst_case
                 loss = self.loss_func(labels, output)
         weight_gradient = tape.gradient(loss, self.model.trainable_variables)

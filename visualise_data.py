@@ -14,15 +14,34 @@ def get_trial_means(df_list):
 
     return df_means
 
+def get_labels(label): 
+    cmap = 'coolwarm'
+    bar_label = '\u03B4\u002A'
+    if(label == "BNN Fairness Score" or label == "BNN Adversary Fairness Score"):
+        cmap = 'Greens'
+        bar_label = 'Threshold score'
+    
+    return (cmap, bar_label)
+    
 
-def generate_heatmaps(df, epsilon):
-    labels = ["BNN Accuracy", "BNN Adversary Accuracy", "BNN Basic Score", "BNN Adversary Basic Score",
-              "BNN Max Difference", "BNN Adversary Max Difference", "BNN Min Difference", "BNN Adversary Min Difference", "BNN Fairness Score", "BNN Adversary Fairness Score"]
+def generate_heatmaps(df, epsilon, delta, is_regularisation):
+    labels = ["BNN Accuracy", "BNN Adversary Accuracy", "DNN Accuracy", "DNN Adversary Accuracy", 
+              "BNN Basic Score", "BNN Adversary Basic Score", "DNN Basic Score", "DNN Adversary Basic Score", 
+              "BNN Max Difference", "BNN Adversary Max Difference", "DNN Max Difference", "DNN Adversary Max Difference", 
+              "BNN Min Difference", "BNN Adversary Min Difference", "DNN Min Difference", "DNN Adversary Min Difference", 
+              "BNN Fairness Score", "BNN Adversary Fairness Score", "DNN Fairness Score", "DNN Adversary Fairness Score"]
+    
+    if is_regularisation : 
+        labels = ["BNN Accuracy", "BNN Adversary Accuracy",  
+              "BNN Max Difference", "BNN Adversary Max Difference", 
+              "BNN Min Difference", "BNN Adversary Min Difference", 
+              "BNN Fairness Score", "BNN Adversary Fairness Score",
+              "BNN Avg Diff", "BNN Adversary Avg Diff",]
 
     # Number of hidden layers in the model
-    layers = [1, 2, 3]
+    layers = [1, 2, 3, 4, 5]
     # Number of neurons per hidden layer in the model
-    neurons = [16, 8, 4]
+    neurons = [64, 32, 16, 8, 4, 2]
 
     for label in labels:
         # The column label for the measurements in the dataframe has no spaces
@@ -44,15 +63,17 @@ def generate_heatmaps(df, epsilon):
         plt.figure(figsize=(10, 6))
         sns.set(font_scale=1.5)
 
+        cmap_label, bar_label = get_labels(label)
+
         sns.heatmap(heatmap_df,
-                    cmap='coolwarm',
+                    cmap= cmap_label,
                     # annot=True,
-                    cbar_kws={'label': '\u03B4\u002A'},
+                    cbar_kws={'label': bar_label},
                     fmt='.5g',
                     vmin=0,
                     vmax=1)
 
-        plt.title(label, fontsize=22)
+        plt.title(label + " - " + '\u03B4' + ": " + str(delta), fontsize=22)
         plt.xlabel('Number of Hidden Layers', fontsize=22)
         plt.ylabel('Number of Neurons (width)', fontsize=22)
         plt.savefig(
@@ -138,7 +159,8 @@ def generate_epsilon_plots(df_list):
 
 
 def main():
-    eps = ["0.00", "0.05", "0.10", "0.15", "0.20"]
+    eps = ["0.2"]
+    delta = 1
 
     # Position 0 will hold mean results across 10 trials at epsilon 0.00
     # Position 1 will hold mean results at epsilon 0.05, etc.
@@ -164,9 +186,9 @@ def main():
 
         # print(df_means)
 
-        generate_heatmaps(df_means, epsilon)
+        generate_heatmaps(df_means, epsilon, delta, True)
 
-        generate_accuracy_fairness_plots(df_means, epsilon)
+        #generate_accuracy_fairness_plots(df_means, epsilon)
 
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', 1000)
@@ -178,7 +200,7 @@ def main():
         mean_results_by_eps.append(df_means)
 
     # print(mean_results_by_eps)
-    generate_epsilon_plots(mean_results_by_eps)
+    #generate_epsilon_plots(mean_results_by_eps)
 
 
 if __name__ == "__main__":

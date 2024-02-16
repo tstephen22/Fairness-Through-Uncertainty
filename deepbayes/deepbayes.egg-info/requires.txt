@@ -1,4 +1,4 @@
-tensorflow
 numpy
+tensorflow
 tensorflow-probability
 tqdm
