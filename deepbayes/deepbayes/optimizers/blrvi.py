@@ -36,7 +36,6 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
                       epochs, prior_mean, prior_var, **kwargs)
 
         self.fair_epsilons = fair_epsilons
-
         # Now we get into the NoisyAdam specific enrichments to the class
         self.posti_mean = self.model.get_weights()
         self.beta_1 = kwargs.get('beta_1', 0.999)
@@ -140,6 +139,7 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
             elif(int(self.robust_train) == 5):
                 output = tf.zeros(predictions.shape)
                 for _mc_ in range(self.loss_monte_carlo):
+
                     adversarial = BNN_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
                     worst_case = self.model(adversarial)
                     output += (1.0/self.loss_monte_carlo) * worst_case

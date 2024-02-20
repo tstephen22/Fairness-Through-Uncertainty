@@ -1,0 +1,2 @@
+      BNNAccuracy  BNNAdversaryAccuracy  BNNBasicScore  BNNAdversaryBasicScore  BNNMaxDifference  BNNAdversaryMaxDifference  BNNMinDifference  BNNAdversaryMinDifference  BNNFairnessScore  BNNAdversaryFairnessScore
+L1N8     0.826501               0.75403       0.485491                0.138032          0.683751                   0.888188          0.021295                        0.0               1.0                        1.0

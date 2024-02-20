@@ -121,7 +121,7 @@ class Optimizer(ABC):
             lrate = self.learning_rate * (1 / (1 + self.decay * epoch))
 
             # Run the model through train and test sets respectively
-            for (features, labels) in tqdm(train_ds):
+            for (features, labels) in tqdm(train_ds, disable=True):
                 features += np.random.normal(loc=0.0, scale=self.input_noise, size=features.shape)
                 self.posterior, self.posterior_var = self.step(features, labels, lrate)
             for test_features, test_labels in test_ds:
@@ -131,7 +131,6 @@ class Optimizer(ABC):
             (loss, acc) = self.train_loss.result(), self.train_metric.result()
             (val_loss, val_acc) = self.valid_loss.result(), self.valid_metric.result()
             self.logging(loss, acc, val_loss, val_acc, epoch)
-            
             # Clear the current state of the metrics
             self.train_loss.reset_states(), self.train_metric.reset_states()
             self.valid_loss.reset_states(), self.valid_metric.reset_states()
@@ -188,16 +187,16 @@ class Optimizer(ABC):
         if(self.robust_train == 0):
             template = "Epoch {}, loss: {:.3f}, %s: {:.3f}, val_loss: {:.3f}, val_%s: {:.3f}"%(tag, tag)
             print (template.format(epoch+1, loss,
-                         acc,
-                         val_loss,
-                         val_acc))
+                        acc,
+                        val_loss,
+                        val_acc))
         else:
             rob = self.extra_metric.result()
             template = "Epoch {}, loss: {:.3f}, acc: {:.3f}, val_loss: {:.3f}, val_acc: {:.3f}, rob: {:.3f}, (eps = {:.6f})" 
             print (template.format(epoch+1, loss,
-                         acc,
-                         val_loss,
-                         val_acc, rob, self.epsilon))
+                        acc,
+                        val_loss,
+                        val_acc, rob, self.epsilon))
         log_template = "Epoch: {}, Train: [Loss: {:.3f}, Acc: {:.3f}], Test: [Loss: {:.3f}, Acc: {:.3f}]"
         logging.basicConfig(filename=self.log_dir, level=logging.DEBUG)
         logging.info(log_template.format(epoch+1, loss, acc, val_loss, val_acc))

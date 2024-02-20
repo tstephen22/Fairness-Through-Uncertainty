@@ -159,7 +159,7 @@ def generate_epsilon_plots(df_list):
 
 
 def main():
-    eps = ["0.2"]
+    eps = ["0.20"]
     delta = 1
 
     # Position 0 will hold mean results across 10 trials at epsilon 0.00

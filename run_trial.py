@@ -1,6 +1,8 @@
 # For installation of DeepBayes see https://stackoverflow.com/questions/23075397/python-how-to-edit-an-installed-package
 import deepbayes.optimizers as optimizers
 from tensorflow import keras
+import tensorflow as tf
+import os, contextlib
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from DNN_FGSM import DNN_FGSM
 from BNN_FGSM import BNN_FGSM
 from datetime import datetime
+from tqdm import tqdm
 from tensorflow.python.ops.numpy_ops import np_config
 import random
 
@@ -237,7 +240,6 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], t
         model_BNN.add(keras.layers.Dense(
             num_classes, activation="softmax"))
         
-        trained_model_DNN = None
         if train_dnn : 
             trained_model_DNN = train_DNN_model(
             x_train, y_train, model_DNN)
@@ -252,11 +254,12 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], t
 
 
 def main():
+    tf.keras.utils.disable_interactive_logging()
     x_train, x_test, y_train, y_test = preprocess_data()
     adversary_regularisation = True
     delta = 1 
     # Try 0.00, 0.05, 0.10, 0.15, 0.20
-    epsilon = 0.2
+    eps = [0.0, 0.05, 0.10, 0.15]
 
     # Number of hidden layers in the model
     # layers = [1, 2, 3, 4, 5]
@@ -288,104 +291,110 @@ def main():
     # N4
     # N2
     #    L1 L2 L3 L4 L5
-
+    print("Running ", "Adversary Regularisation" if adversary_regularisation else "Adversary Training", "------------------------------------------" )
     # Number of neurons per layer (64, 32, 16, 8, 4, 2)
-    df = pd.DataFrame(columns=measurements_adv if adversary_regularisation else measurements_training)
-    for neuron_num in neurons:
-        # Number of layers (1, 2, 3, 4, 5)
-        for layer_num in layers:
-        #Training--------------------------------------------------------------------------------------------------------------------------------------
-            if adversary_regularisation : 
-                #Epsilons 
-                epsilons = np.full(100, epsilon)
+    for epsilon in eps: 
+        print("> Testing epsilon=",epsilon)
+        df = pd.DataFrame(columns=measurements_adv if adversary_regularisation else measurements_training)
+        for neuron_num in neurons:
+            # Number of layers (1, 2, 3, 4, 5)
+            for layer_num in tqdm(layers):
+            #Training--------------------------------------------------------------------------------------------------------------------------------------
+                print("Network : L", layer_num, "N", neuron_num)
+                if adversary_regularisation : 
+                    #Epsilons 
+                    epsilons = np.full(100, epsilon)
 
-                # Index 58 is the feature for gender (0 for Female, 1 for Male)
-                epsilons[58] = 1.0
+                    # Index 58 is the feature for gender (0 for Female, 1 for Male)
+                    epsilons[58] = 1.0
+                    print(">> Training Ordinary BNN model ...")
+                    #Train without regularisation 
+                    trained_model_BNN, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False)
+                    print("> Done.\n>>Generating results.")
+                    basic_score_BNN, (max_diff_BNN, min_diff_BNN, avg_diff_BNN), delta_BNN_res, accuracy_BNN = get_results(
+                        trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal, No regularisation")
+                    print(">> Training Regularized BNN model ...")
+                    #Train with regularisation
+                    trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False,
+                                                        fairness_reg=True, epsilons=epsilons)
+                    print("> Done.\n>>Generating results.")
+                    basic_score_BNN_adv, (max_diff_BNN_adv, min_diff_BNN_adv, avg_diff_BNN_adv), delta_BNN_adv_res, accuracy_BNN_adv = get_results(
+                        trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - Adversarial Regularisation")
+                    print(">> Writing out to dataframe ...")
+                    new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, 
+                                            max_diff_BNN, max_diff_BNN_adv,  
+                                            min_diff_BNN, min_diff_BNN_adv,
+                                            delta_BNN_res, delta_BNN_adv_res,
+                                            avg_diff_BNN, avg_diff_BNN_adv], index=measurements_adv, columns=[f"L{layer_num}N{neuron_num}"]).T
+                    df = pd.concat((df, new_row))
+                    print("> Done.\nTrial complete!\n")
 
-                #Train without regularisation
-                trained_model_BNN, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False)
-                
-                basic_score_BNN, (max_diff_BNN, min_diff_BNN, avg_diff_BNN), delta_BNN_res, accuracy_BNN = get_results(
-                    trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal, No regularisation")
-                
-                #Train with regularisation
-                trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False,
-                                                      fairness_reg=True, epsilons=epsilons)
-                
-                basic_score_BNN_adv, (max_diff_BNN_adv, min_diff_BNN_adv, avg_diff_BNN_adv), delta_BNN_adv_res, accuracy_BNN_adv = get_results(
-                    trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - Adversarial Regularisation")
-                
-                new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, 
-                                        max_diff_BNN, max_diff_BNN_adv,  
-                                        min_diff_BNN, min_diff_BNN_adv,
-                                        delta_BNN_res, delta_BNN_adv_res,
-                                        avg_diff_BNN, avg_diff_BNN_adv], index=measurements_adv, columns=[f"L{layer_num}N{neuron_num}"]).T
-                df = pd.concat((df, new_row))
+                else: 
+                    #Train normal BNN, DNN network with no adversarial training 
+                    trained_model_BNN, trained_model_DNN = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test)
+                    # BNN 
+                    basic_score_BNN, max_diff_BNN, min_diff_BNN, delta_BNN_res, accuracy_BNN = get_results(
+                        trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal")
+                    
+                    # DNN 
+                    basic_score_DNN, max_diff_DNN, min_diff_DNN, delta_DNN_res, accuracy_DNN = get_results(
+                        trained_model_DNN, x_test, y_test, epsilon, delta, "DNN", "DNN - Normal")
+                    
+                    #Create adversarials
+                    adversarials_BNN = get_adversarial_examples(trained_model_BNN, x_train, epsilon, "BNN")
+                    adversarials_DNN = get_adversarial_examples(trained_model_DNN, x_train, epsilon, "DNN")
 
-            else: 
-                #Train normal BNN, DNN network with no adversarial training 
-                trained_model_BNN, trained_model_DNN = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test)
-                # BNN 
-                basic_score_BNN, max_diff_BNN, min_diff_BNN, delta_BNN_res, accuracy_BNN = get_results(
-                    trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal")
-                
-                # DNN 
-                basic_score_DNN, max_diff_DNN, min_diff_DNN, delta_DNN_res, accuracy_DNN = get_results(
-                    trained_model_DNN, x_test, y_test, epsilon, delta, "DNN", "DNN - Normal")
-                
-                #Create adversarials
-                adversarials_BNN = get_adversarial_examples(trained_model_BNN, x_train, epsilon, "BNN")
-                adversarials_DNN = get_adversarial_examples(trained_model_DNN, x_train, epsilon, "DNN")
+                    #Concatenate onto training data 
+                    # BNN
+                    x_train_adv_BNN = np.concatenate([x_train, adversarials_BNN])
+                    y_train_adv_BNN = np.concatenate([y_train, y_train]) 
+                    # DNN
+                    x_train_adv_DNN = np.concatenate([x_train, adversarials_DNN])
+                    y_train_adv_DNN = np.concatenate([y_train, y_train]) 
 
-                #Concatenate onto training data 
-                # BNN
-                x_train_adv_BNN = np.concatenate([x_train, adversarials_BNN])
-                y_train_adv_BNN = np.concatenate([y_train, y_train]) 
-                # DNN
-                x_train_adv_DNN = np.concatenate([x_train, adversarials_DNN])
-                y_train_adv_DNN = np.concatenate([y_train, y_train]) 
+                    #Train models using adversarials 
+                    # BNN only
+                    trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train_adv_BNN, y_train_adv_BNN, x_test, y_test, train_dnn=False)
+                    # DNN only
+                    _, trained_model_DNN_adv = trainModel(neuron_num, layer_num, x_train_adv_DNN, y_train_adv_DNN, x_test, y_test, train_bnn=False)
 
-                #Train models using adversarials 
-                # BNN only
-                trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train_adv_BNN, y_train_adv_BNN, x_test, y_test, train_dnn=False)
-                # DNN only
-                _, trained_model_DNN_adv = trainModel(neuron_num, layer_num, x_train_adv_DNN, y_train_adv_DNN, x_test, y_test, train_bnn=False)
+                    #Get results 
+                    # BNN
+                    basic_score_BNN_adv, max_diff_BNN_adv, min_diff_BNN_adv, delta_BNN_adv_res, accuracy_BNN_adv = get_results(
+                        trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - With adversarial")
+                    # DNN
+                    basic_score_DNN_adv, max_diff_DNN_adv, min_diff_DNN_adv, delta_DNN_adv_res, accuracy_DNN_adv = get_results(
+                        trained_model_DNN_adv, x_test, y_test, epsilon, delta, "DNN", "DNN - With adversarial")
+                    # Dummy data for debugging
+                    # accuracy_DNN = random.random()
+                    # accuracy_BNN = random.random()
+                    # basic_score_DNN = random.random()
+                    # basic_score_BNN = random.random()
+                    # max_diff_DNN = random.random()
+                    # max_diff_BNN = random.random()
+                    # min_diff_DNN = random.random()
+                    # min_diff_BNN = random.random()
+                    # avrg_diff_DNN = random.random()
+                    # avrg_diff_BNN = random.random()
 
-                #Get results 
-                # BNN
-                basic_score_BNN_adv, max_diff_BNN_adv, min_diff_BNN_adv, delta_BNN_adv_res, accuracy_BNN_adv = get_results(
-                    trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - With adversarial")
-                # DNN
-                basic_score_DNN_adv, max_diff_DNN_adv, min_diff_DNN_adv, delta_DNN_adv_res, accuracy_DNN_adv = get_results(
-                    trained_model_DNN_adv, x_test, y_test, epsilon, delta, "DNN", "DNN - With adversarial")
-                # Dummy data for debugging
-                # accuracy_DNN = random.random()
-                # accuracy_BNN = random.random()
-                # basic_score_DNN = random.random()
-                # basic_score_BNN = random.random()
-                # max_diff_DNN = random.random()
-                # max_diff_BNN = random.random()
-                # min_diff_DNN = random.random()
-                # min_diff_BNN = random.random()
-                # avrg_diff_DNN = random.random()
-                # avrg_diff_BNN = random.random()
-
-                new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, accuracy_DNN, accuracy_DNN_adv,
-                                        basic_score_BNN, basic_score_BNN_adv, basic_score_DNN, basic_score_DNN_adv, 
-                                        max_diff_BNN, max_diff_BNN_adv, max_diff_DNN, max_diff_DNN_adv, 
-                                        min_diff_BNN, min_diff_BNN_adv, min_diff_DNN, min_diff_DNN_adv, 
-                                        delta_BNN_res, delta_BNN_adv_res, delta_DNN_res, delta_DNN_adv_res], index=measurements_training, columns=[f"L{layer_num}N{neuron_num}"]).T
-                df = pd.concat((df, new_row))
-                 #--------------------------------------------------------------------------------------------------------------------------------------
-
-    # Pandas options to display all columns and rows
-    pd.set_option('display.max_columns', None)
-    pd.set_option('display.width', 1000)
-    # pd.set_option('display.max_rows', None)
-    # np.set_printoptions(linewidth=100000)
-
-    f = open(f"./results/trial_{datetime.now()}_eps_{epsilon}_{'regularisation' if adversary_regularisation else 'fair_training'}.csv", 'a')
-    print(df, file=f)
+                    new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, accuracy_DNN, accuracy_DNN_adv,
+                                            basic_score_BNN, basic_score_BNN_adv, basic_score_DNN, basic_score_DNN_adv, 
+                                            max_diff_BNN, max_diff_BNN_adv, max_diff_DNN, max_diff_DNN_adv, 
+                                            min_diff_BNN, min_diff_BNN_adv, min_diff_DNN, min_diff_DNN_adv, 
+                                            delta_BNN_res, delta_BNN_adv_res, delta_DNN_res, delta_DNN_adv_res], index=measurements_training, columns=[f"L{layer_num}N{neuron_num}"]).T
+                    df = pd.concat((df, new_row))
+                    #--------------------------------------------------------------------------------------------------------------------------------------
+        print(">> Models tested. Writing out to file ...")
+        # Pandas options to display all columns and rows
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', 1000)
+        # pd.set_option('display.max_rows', None)
+        # np.set_printoptions(linewidth=100000)
+    
+        f = open(f"./results/trial_{datetime.now()}_eps_{epsilon}_{'regularisation' if adversary_regularisation else 'fair_training'}.csv", 'a')
+        print(df, file=f)
+        print("Epsilon=", epsilon, " testing complete.")
+    print("Full suite complete.")
 
 
 if __name__ == "__main__":
