@@ -2,7 +2,8 @@
 
 ## Contents 
 
-- `run_trial.py` - Main script for running an experimental trial (i.e. training a variety of BNNs and deterministic NNs on the Adult dataset and evaluating their individual fairness).
+- `run_trial.py` - Script for running a suite of trials. This script will measure IF for BNNs and test experimental methods for improving IF; either `Adversarial training` or `Adversarial regularisation`
+  depending on which is specified. 
 - `visualise_data.py` - Script for visualising the results of the experiments.
 - `requirements.txt` - Requirements required to run the provided code. Use `pip install -r requirements.txt`.
 - `BNN_FGSM.py` and `DNN_FGSM.py` -  _Fair-FGSM_ for measuring individual fairness by [Alice Doherty](https://github.com/alicedoherty/bayesian-individual-fairness).
