@@ -256,7 +256,7 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], t
 def main():
     tf.keras.utils.disable_interactive_logging()
     x_train, x_test, y_train, y_test = preprocess_data()
-    adversary_regularisation = True
+    adversary_regularisation = False
     delta = 1 
     # Try 0.00, 0.05, 0.10, 0.15, 0.20
     eps = [0.0, 0.05, 0.10, 0.15]
