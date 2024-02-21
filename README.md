@@ -12,3 +12,5 @@
 - `\results` - Directory containing the results of the experimental trials.
 - `\heatmaps`, `\fairness_acc_plots`, `\epsilon_plots` - Directories containing the graphs visualising the experimental results. Separated by 
 which form of improvement was used, `Training` or `Regularisation`
+
+Trendmous credit to [Alice Doherty](https://github.com/alicedoherty/bayesian-individual-fairness), who's code and research this project is built-upon. 
