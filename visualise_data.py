@@ -26,9 +26,9 @@ def get_labels(label):
 
 def generate_heatmaps(df, epsilon, delta, is_regularisation=False):
 
-    if not os.path.exists(f"./heatmaps/{"Regularisation" if is_regularisation else "Training"}/heatmaps_{epsilon}/"):
+    if not os.path.exists(f"./heatmaps/Regularisation/heatmaps_{epsilon}/"):
         os.makedirs(
-            f"./heatmaps/{"Regularisation" if is_regularisation else "Training"}/heatmaps_{epsilon}/")
+            f"./heatmaps/Regularisation/heatmaps_{epsilon}/")
                     
     labels = ["BNN Accuracy", "BNN Adversary Accuracy", "DNN Accuracy", "DNN Adversary Accuracy", 
               "BNN Basic Score", "BNN Adversary Basic Score", "DNN Basic Score", "DNN Adversary Basic Score", 
@@ -82,14 +82,14 @@ def generate_heatmaps(df, epsilon, delta, is_regularisation=False):
         plt.xlabel('Number of Hidden Layers', fontsize=22)
         plt.ylabel('Number of Neurons (width)', fontsize=22)
         plt.savefig(
-            f"./heatmaps/{"Regularisation" if is_regularisation else "Training"}/heatmaps_{epsilon}/{measurement}_{epsilon}.png")
+            f"./heatmaps/Regularisation/heatmaps_{epsilon}/{measurement}_{epsilon}.png")
 
 
 def generate_accuracy_fairness_plots(df, epsilon, is_regularisation=False):
 
-    if not os.path.exists(f"./fairness_acc_plots/{"Regularisation" if is_regularisation else "Training"}/plots_{epsilon}/"):
+    if not os.path.exists(f"./fairness_acc_plots/Regularisation/plots_{epsilon}/"):
                     os.makedirs(
-                        f"./fairness_acc_plots/{"Regularisation" if is_regularisation else "Training"}/plots_{epsilon}/")
+                        f"./fairness_acc_plots/Regularisation/plots_{epsilon}/")
                     
     BNN__adv_labels = ["BNN Adversary Fairness Score", "BNN Adversary Max Difference",
                   "BNN Adversary Min Difference", "BNN Adversary Avg Diff"]
@@ -111,7 +111,7 @@ def generate_accuracy_fairness_plots(df, epsilon, is_regularisation=False):
         axis.set_xlim([0, 1])
         axis.set_ylim([0, 1])
         plt.savefig(
-            f"./fairness_acc_plots/{"Regularisation" if is_regularisation else "Training"}/plots_{epsilon}/{measurement}_{epsilon}.png")
+            f"./fairness_acc_plots/Regularisation/plots_{epsilon}/{measurement}_{epsilon}.png")
 
     for label in BNN_labels:
         tmp = label
@@ -127,7 +127,7 @@ def generate_accuracy_fairness_plots(df, epsilon, is_regularisation=False):
         axis.set_xlim([0, 1])
         axis.set_ylim([0, 1])
         plt.savefig(
-            f"./fairness_acc_plots/{"Regularisation" if is_regularisation else "Training"}/plots_{epsilon}/{measurement}_{epsilon}.png")
+            f"./fairness_acc_plots/Regularisation/plots_{epsilon}/{measurement}_{epsilon}.png")
 
 
 def generate_epsilon_plots(df_list, is_regularisation=False):
@@ -135,7 +135,7 @@ def generate_epsilon_plots(df_list, is_regularisation=False):
               "BNN Min Difference", "BNN Avg Diff", 
               "BNN Adversary Fairness Score", "BNN Adversary Max Difference",
               "BNN Adversary Min Difference", "BNN Adversary Avg Diff"]
-    eps = [0.00, 0.05, 0.10, 0.15, 0.20]
+    eps = [0.10, 0.15, 0.20]
     layers = [1, 2, 3, 4, 5]
     neurons = [2, 4, 8, 16, 32, 64]
 
@@ -162,15 +162,15 @@ def generate_epsilon_plots(df_list, is_regularisation=False):
                 axis.set_xlim([0, 0.20])
                 axis.set_ylim([0, 1])
 
-                if not os.path.exists(f"./epsilon_plots/{"Regularisation" if is_regularisation else "Training"}/L{layer_num}N{neuron_num}/"):
+                if not os.path.exists(f"./epsilon_plots/Regularisation/L{layer_num}N{neuron_num}/"):
                     os.makedirs(
-                        f"./epsilon_plots/{"Regularisation" if is_regularisation else "Training"}/L{layer_num}N{neuron_num}/")
+                        f"./epsilon_plots/Regularisation/L{layer_num}N{neuron_num}/")
                 plt.savefig(
-                    f"./epsilon_plots/{"Regularisation" if is_regularisation else "Training"}/L{layer_num}N{neuron_num}/{measurement}_L{layer_num}N{neuron_num}.png")
+                    f"./epsilon_plots/Regularisation/L{layer_num}N{neuron_num}/{measurement}_L{layer_num}N{neuron_num}.png")
 
 
 def main():
-    eps = ["0.00", "0.05", "0.10", "0.15", "0.20"]
+    eps = ["0.10", "0.15", "0.20"]
     delta = 1
     is_regularisation = True 
     # Position 0 will hold mean results across 10 trials at epsilon 0.00
@@ -180,8 +180,8 @@ def main():
     for epsilon in eps:
         file_names = []
         # Read in all files in the results directory
-                           
-        for item in Path(f"./results/{"Regularisation" if is_regularisation else "Training"}/epsilon_{epsilon}/").iterdir():
+                    
+        for item in Path(f"./results/Regularisation/epsilon_{epsilon}/").iterdir():
             if item.is_file():
                 file_names.append(str(item))
 
@@ -198,7 +198,7 @@ def main():
 
         # print(df_means)
 
-        generate_heatmaps(df_means, epsilon, delta, True, is_regularisation=is_regularisation)
+        generate_heatmaps(df_means, epsilon, delta, is_regularisation=is_regularisation)
 
         generate_accuracy_fairness_plots(df_means, epsilon, is_regularisation=is_regularisation)
 

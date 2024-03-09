@@ -135,15 +135,16 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
                     output += (1.0/self.loss_monte_carlo) * worst_case
                 loss = self.loss_func(labels, output)
 
-            # Fair-FGSM
+            # Fair-FGSM training
             elif(int(self.robust_train) == 5):
                 output = tf.zeros(predictions.shape)
                 for _mc_ in range(self.loss_monte_carlo):
-
                     adversarial = BNN_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
                     worst_case = self.model(adversarial)
-                    output += (1.0/self.loss_monte_carlo) * worst_case
+                    output = (self.robust_lambda * predictions) + ((1-self.robust_lambda) * worst_case) 
                 loss = self.loss_func(labels, output)
+
+
         weight_gradient = tape.gradient(loss, self.model.trainable_variables)
         # XXXX
         g = np.asarray(weight_gradient, dtype=object)

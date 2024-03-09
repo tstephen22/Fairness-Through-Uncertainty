@@ -256,17 +256,12 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], t
 def main():
     tf.keras.utils.disable_interactive_logging()
     x_train, x_test, y_train, y_test = preprocess_data()
-    adversary_regularisation = False
-    delta = 1 
-    # Try 0.00, 0.05, 0.10, 0.15, 0.20
-    eps = [0.0, 0.05, 0.10, 0.15]
 
-    # Number of hidden layers in the model
-    # layers = [1, 2, 3, 4, 5]
-    layers = [1, 2, 3, 4, 5]
-    neurons = [64, 32, 16, 8, 4, 2]
-    # Number of neurons per hidden layer in the model
-    # neurons = [64, 32, 16, 8, 4, 2]
+    adversary_regularisation = True
+    delta = 1 
+    eps = [0.10, 0.15, 0.20] #[0.0, 0.05, 0.10, 0.15, 0.20] 
+    layers = [1, 2, 3, 4, 5]  #Number of hidden layers in the model
+    neurons = [64, 32, 16, 8, 4, 2] #Number of neurons per hidden layer in the model
 
     # Measurements we're recording during the trials
     measurements_training = ["BNNAccuracy", "BNNAdversaryAccuracy", "DNNAccuracy", "DNNAdversaryAccuracy",
