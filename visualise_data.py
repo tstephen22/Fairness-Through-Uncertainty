@@ -4,7 +4,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import os
+from datetime import datetime
 
+
+def get_col_labels(is_regularisation): 
+     if is_regularisation : 
+        return ["BNN Accuracy", "BNN Fair Training Accuracy",  
+              "BNN Max Difference", "BNN Fair Training Max Difference", 
+              "BNN Min Difference", "BNN Fair Training Min Difference", 
+              "BNN Fairness Score", "BNN Fair Training Fairness Score",
+              "BNN Avg Diff", "BNN Fair Training Avg Diff",
+              "BNN Recall", "BNN Fair Training Recall", 
+              "BNN Precision", "BNN Fair Training Precision", 
+              "BNN Mean Entropy", "BNN Fair Training Mean Entropy"]
+     else : 
+        return ["BNN Accuracy", "BNN Fair Training Accuracy", "DNN Accuracy", "DNN Fair Training Accuracy", 
+              "BNN Basic Score", "BNN Fair Training Basic Score", "DNN Basic Score", "DNN Fair Training Basic Score", 
+              "BNN Max Difference", "BNN Fair Training Max Difference", "DNN Max Difference", "DNN Fair Training Max Difference", 
+              "BNN Min Difference", "BNN Fair Training Min Difference", "DNN Min Difference", "DNN Fair Training Min Difference", 
+              "BNN Fairness Score", "BNN Fair Training Fairness Score", "DNN Fairness Score", "DNN Fair Training Fairness Score"]
 
 def get_trial_means(df_list):
     #  Read in the all 10 dfs from trials and return the average of each measurement across all trials
@@ -24,24 +42,9 @@ def get_labels(label):
     return (cmap, bar_label)
     
 
-def generate_heatmaps(df, epsilon, delta, is_regularisation=False):
-
-    if not os.path.exists(f"./heatmaps/Regularisation/heatmaps_{epsilon}/"):
-        os.makedirs(
-            f"./heatmaps/Regularisation/heatmaps_{epsilon}/")
-                    
-    labels = ["BNN Accuracy", "BNN Adversary Accuracy", "DNN Accuracy", "DNN Adversary Accuracy", 
-              "BNN Basic Score", "BNN Adversary Basic Score", "DNN Basic Score", "DNN Adversary Basic Score", 
-              "BNN Max Difference", "BNN Adversary Max Difference", "DNN Max Difference", "DNN Adversary Max Difference", 
-              "BNN Min Difference", "BNN Adversary Min Difference", "DNN Min Difference", "DNN Adversary Min Difference", 
-              "BNN Fairness Score", "BNN Adversary Fairness Score", "DNN Fairness Score", "DNN Adversary Fairness Score"]
-    
-    if is_regularisation : 
-        labels = ["BNN Accuracy", "BNN Adversary Accuracy",  
-              "BNN Max Difference", "BNN Adversary Max Difference", 
-              "BNN Min Difference", "BNN Adversary Min Difference", 
-              "BNN Fairness Score", "BNN Adversary Fairness Score",
-              "BNN Avg Diff", "BNN Adversary Avg Diff",]
+def generate_heatmaps(df, epsilon, delta, path, is_regularisation=True):
+        
+    labels = get_col_labels(is_regularisation)
 
     # Number of hidden layers in the model
     layers = [1, 2, 3, 4, 5]
@@ -82,7 +85,8 @@ def generate_heatmaps(df, epsilon, delta, is_regularisation=False):
         plt.xlabel('Number of Hidden Layers', fontsize=22)
         plt.ylabel('Number of Neurons (width)', fontsize=22)
         plt.savefig(
-            f"./heatmaps/Regularisation/heatmaps_{epsilon}/{measurement}_{epsilon}.png")
+            f"{path}heatmaps/{measurement}_{epsilon}.png")
+        plt.close()
 
 
 def generate_accuracy_fairness_plots(df, epsilon, is_regularisation=False):
@@ -173,6 +177,7 @@ def main():
     eps = ["0.10", "0.15", "0.20"]
     delta = 1
     is_regularisation = True 
+    trial_type = "Regularisation" if is_regularisation else "Training"
     # Position 0 will hold mean results across 10 trials at epsilon 0.00
     # Position 1 will hold mean results at epsilon 0.05, etc.
     mean_results_by_eps = []
@@ -180,40 +185,31 @@ def main():
     for epsilon in eps:
         file_names = []
         # Read in all files in the results directory
-                    
-        for item in Path(f"./results/Regularisation/epsilon_{epsilon}/").iterdir():
+        for item in Path(f"./results/temp").iterdir():
             if item.is_file():
                 file_names.append(str(item))
-
-        #  print(file_names)
 
         df_list = []
         for file in file_names:
             df = pd.read_csv(file, sep="\s+")
             df_list.append(df)
 
-        #  print(df_list)
-
         df_means = get_trial_means(df_list)
+        path = f"./graphs/{trial_type}_plots_{epsilon}_{datetime.now()}/"
+        if not os.path.exists(path):
+                os.makedirs(path)
+                os.makedirs(f"{path}heatmaps")
 
-        # print(df_means)
-
-        generate_heatmaps(df_means, epsilon, delta, is_regularisation=is_regularisation)
-
-        generate_accuracy_fairness_plots(df_means, epsilon, is_regularisation=is_regularisation)
+        generate_heatmaps(df_means, epsilon, delta, path, is_regularisation=is_regularisation)
 
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', 1000)
 
         f = open(
-            f"./results/mean_results/eps_{epsilon}.csv", 'w')
+            f"{path}mean_eps_{epsilon}.csv", 'w')
         print(df_means, file=f)
 
         mean_results_by_eps.append(df_means)
-
-    # print(mean_results_by_eps)
-    generate_epsilon_plots(mean_results_by_eps, is_regularisation=is_regularisation)
-
 
 if __name__ == "__main__":
     main()

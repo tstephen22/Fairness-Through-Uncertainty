@@ -2,18 +2,13 @@
 import deepbayes.optimizers as optimizers
 from tensorflow import keras
 import tensorflow as tf
-import os, contextlib
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+from scoring import get_adversarial_examples, get_results, timed 
 from sklearn.model_selection import train_test_split
-from DNN_FGSM import DNN_FGSM
-from BNN_FGSM import BNN_FGSM
 from datetime import datetime
 from tqdm import tqdm
 from tensorflow.python.ops.numpy_ops import np_config
-import random
 
 np_config.enable_numpy_behavior()
 
@@ -57,6 +52,7 @@ def preprocess_data():
 
     return x_train, x_test, y_train, y_test
 
+# TRAINING --------------------------------------------------------------------------------------------------------------------
 
 def train_DNN_model(x_train, y_train, model):
     # Printing the model to standard output
@@ -102,119 +98,6 @@ def train_BNN_model(x_train, y_train, x_test, y_test, model, fair_reg=False, fai
 
     return bayes_model
 
-
-def get_adversarial_examples(model, test_data, epsilon, type):
-    print(">>Creating adversarial examples")
-    epsilons = np.full(100, epsilon)
-
-    # Index 58 is the feature for gender (0 for Female, 1 for Male)
-    epsilons[58] = 1.0
-    adversarial_examples = np.ndarray(shape=(test_data.shape))
-
-    for i in range(len(test_data)):
-        if type == "DNN":
-            adversarial = DNN_FGSM(
-                model, test_data[i], keras.losses.categorical_crossentropy, epsilons)
-        elif type == "BNN":
-            adversarial = BNN_FGSM(
-                model, test_data[i], keras.losses.categorical_crossentropy, epsilons)
-        adversarial_examples[i] = adversarial
-    print("Done.")
-    return adversarial_examples
-
-
-def get_fairness_score_basic(x_test_predictions, x_test_adversarial_predictions, type):
-    classes = ["<=50K", ">50K"]
-    count = 0
-
-    for i in range(len(x_test_predictions)):
-        if classes[np.argmax(x_test_predictions[i])] != classes[np.argmax(
-                x_test_adversarial_predictions[i])]:
-            count += 1
-
-    basic_score = (1 - (count / len(x_test_predictions)))
-    print(count, "/", len(x_test_predictions),
-          "individuals classified differently after adversarial attack")
-    print("Basic Fairness Score:", basic_score, "\n")
-
-    return basic_score
-
-
-def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type):
-    differences = []
-
-    if type == "DNN":
-        for i in range(len(x_test_predictions)):
-            difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
-            differences.append(difference)
-    elif type == "BNN":
-        for i in range(len(x_test_predictions)):
-            difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
-            differences.append(difference)
-
-    max_diff = max(differences)
-    min_diff = min(differences)
-    avrg_diff = np.mean(differences)
-
-    print("Maximum Difference:", max_diff)
-    print("Minimum Difference:", min_diff)
-    print("Average (Mean) Difference:", avrg_diff, "\n")
-
-    return max_diff, min_diff, avrg_diff
-
-def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type):
-    differences = []
-
-    if type == "DNN":
-        for i in range(len(x_test_predictions)):
-            difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
-            differences.append(difference)
-    elif type == "BNN":
-        for i in range(len(x_test_predictions)):
-            difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
-            differences.append(difference)
-
-    max_diff = max(differences)
-    thres_score = (delta - max_diff)/delta
-    print("Threshold adjusted fairness score : ", thres_score)
-    return thres_score
-
-def get_results(model, x_test, y_test, epsilon, delta, type, display_text):
-    # Get predictions for x_test data (without attack)
-    x_test_predictions = model.predict(x_test)
-
-    # Get numpy array of x_test data converted to adversarial examples
-    x_test_adversarial = get_adversarial_examples(model, x_test, epsilon, type)
-
-    # Get predictions for x_test_adversarial data (with attack)
-    x_test_adversarial_predictions = model.predict(x_test_adversarial)
-
-    # Get accuracy of model
-    if type == "DNN":
-        score = model.evaluate(x_test, y_test)
-        accuracy = score[1]
-    elif type == "BNN":
-        test_acc = np.mean(np.argmax(x_test_predictions, axis=1)
-                           == np.argmax(y_test, axis=1))
-        accuracy = test_acc
-
-    print(f"\n ❗️{display_text} RESULTS❗️")
-    print("Accuracy:", accuracy, "\n")
-
-    basic_score = get_fairness_score_basic(
-        x_test_predictions, x_test_adversarial_predictions, type)
-    
-    thres_score = threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type)
-
-    max_diff, min_diff, avrg_diff = get_fairness_score(x_test_predictions,
-                                                       x_test_adversarial_predictions, type)
-
-    return basic_score, (max_diff, min_diff, avrg_diff) , thres_score, accuracy
-
 def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], train_dnn=True, train_bnn=True, fairness_reg=False):
         input_shape = x_train.shape[1]
         num_classes = y_train.shape[1]
@@ -252,6 +135,9 @@ def trainModel(neurons, layers, x_train, y_train, x_test, y_test, epsilons=[], t
         
         return (trained_model_BNN, trained_model_DNN)
 
+trainModel = timed(trainModel)
+
+# --------------------------------------------------------------------------------------------------------------------
 
 def main():
     tf.keras.utils.disable_interactive_logging()
@@ -259,21 +145,26 @@ def main():
 
     adversary_regularisation = True
     delta = 1 
-    eps = [0.10, 0.15, 0.20] #[0.0, 0.05, 0.10, 0.15, 0.20] 
+    eps = [0.0, 0.05, 0.10, 0.15, 0.20] 
     layers = [1, 2, 3, 4, 5]  #Number of hidden layers in the model
     neurons = [64, 32, 16, 8, 4, 2] #Number of neurons per hidden layer in the model
 
     # Measurements we're recording during the trials
-    measurements_training = ["BNNAccuracy", "BNNAdversaryAccuracy", "DNNAccuracy", "DNNAdversaryAccuracy",
-                    "BNNMaxDifference", "BNNAdversaryMaxDifference", "DNNMaxDifference", "DNNAdversaryMaxDifference", 
-                    "BNNMinDifference", "BNNAdversaryMinDifference", "DNNMinDifference", "DNNAdversaryMinDifference",
-                    "BNNFairnessScore", "BNNAdversaryFairnessScore", "DNNFairnessScore", "DNNAdversaryFairnessScore"]
+    measurements_training = ["BNNAccuracy", "BNNFairTrainingAccuracy", "DNNAccuracy", "DNNFairTrainingAccuracy",
+                    "BNNMaxDifference", "BNNFairTrainingMaxDifference", "DNNMaxDifference", "DNNFairTrainingMaxDifference", 
+                    "BNNMinDifference", "BNNFairTrainingMinDifference", "DNNMinDifference", "DNNFairTrainingMinDifference",
+                    "BNNFairnessScore", "BNNFairTrainingFairnessScore", "DNNFairnessScore", "DNNFairTrainingFairnessScore"]
 
-    measurements_adv = ["BNNAccuracy", "BNNAdversaryAccuracy",
-                    "BNNMaxDifference", "BNNAdversaryMaxDifference",
-                    "BNNMinDifference", "BNNAdversaryMinDifference", 
-                    "BNNFairnessScore", "BNNAdversaryFairnessScore", 
-                    "BNNAvgDiff", "BNNAdversaryAvgDiff"]
+    measurements_adv = ["Layer", "Neurons",
+                    "BNNAccuracy", "BNNFairTrainingAccuracy",
+                    "BNNMaxDifference", "BNNFairTrainingMaxDifference",
+                    "BNNMinDifference", "BNNFairTrainingMinDifference", 
+                    "BNNFairnessScore", "BNNFairTrainingFairnessScore", 
+                    "BNNAvgDiff", "BNNFairTrainingAvgDiff",
+                    "BNNRecall", "BNNFairTrainingRecall",
+                    "BNNPrecision", "BNNFairTrainingPrecision",
+                    "BNNMeanEntropy", "BNNFairTrainingMeanEntropy",
+                    "BNNTime", "BNNFairTrainingTime"]
     # Order of models tested: L1N64, L2N64,... , L5N64, L1N32, ..., L5N32, ..., L1N2, ..., L5N2
     # Where, L = number of hidden layers (1, 2, 3, 4, 5)
     # and, N = number of neurons per layer, i.e width (64, 32, 16, 8, 4, 2)
@@ -291,9 +182,9 @@ def main():
     for epsilon in eps: 
         print("> Testing epsilon=",epsilon)
         df = pd.DataFrame(columns=measurements_adv if adversary_regularisation else measurements_training)
-        for neuron_num in neurons:
+        for neuron_num in tqdm(neurons):
             # Number of layers (1, 2, 3, 4, 5)
-            for layer_num in tqdm(layers):
+            for layer_num in layers:
             #Training--------------------------------------------------------------------------------------------------------------------------------------
                 print("Network : L", layer_num, "N", neuron_num)
                 if adversary_regularisation : 
@@ -304,23 +195,30 @@ def main():
                     epsilons[58] = 1.0
                     print(">> Training Ordinary BNN model ...")
                     #Train without regularisation 
-                    trained_model_BNN, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False)
-                    print("> Done.\n>>Generating results.")
-                    basic_score_BNN, (max_diff_BNN, min_diff_BNN, avg_diff_BNN), delta_BNN_res, accuracy_BNN = get_results(
+                    time_BNN, trained_model_BNN, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False)
+                    print(f"> Done in {time_BNN} s.\n>>Generating results.")
+                    (max_diff_BNN, min_diff_BNN, avg_diff_BNN), delta_BNN_res, (accuracy_BNN, recall_BNN, precision_BNN, entropy_BNN) = get_results(
                         trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal, No regularisation")
                     print(">> Training Regularized BNN model ...")
                     #Train with regularisation
-                    trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False,
+                    time_BNN_adv, trained_model_BNN_adv, _ = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test, train_dnn=False,
                                                         fairness_reg=True, epsilons=epsilons)
-                    print("> Done.\n>>Generating results.")
-                    basic_score_BNN_adv, (max_diff_BNN_adv, min_diff_BNN_adv, avg_diff_BNN_adv), delta_BNN_adv_res, accuracy_BNN_adv = get_results(
+                    print(f"> Done in {time_BNN_adv}.\n>>Generating results.")
+                    (max_diff_BNN_adv, min_diff_BNN_adv, avg_diff_BNN_adv), delta_BNN_adv_res, (accuracy_BNN_adv, recall_BNN_adv, precision_BNN_adv, entropy_BNN_adv) = get_results(
                         trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - Adversarial Regularisation")
                     print(">> Writing out to dataframe ...")
-                    new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, 
+                    new_row = pd.DataFrame([layer_num, neuron_num,
+                                            accuracy_BNN, accuracy_BNN_adv, 
                                             max_diff_BNN, max_diff_BNN_adv,  
                                             min_diff_BNN, min_diff_BNN_adv,
                                             delta_BNN_res, delta_BNN_adv_res,
-                                            avg_diff_BNN, avg_diff_BNN_adv], index=measurements_adv, columns=[f"L{layer_num}N{neuron_num}"]).T
+                                            avg_diff_BNN, avg_diff_BNN_adv,
+                                            recall_BNN, recall_BNN_adv,
+                                            precision_BNN, precision_BNN_adv, 
+                                            entropy_BNN, entropy_BNN_adv,
+                                            time_BNN, time_BNN_adv], 
+                                            index=measurements_adv if adversary_regularisation else measurements_training, 
+                                            columns=[f"L{layer_num}N{neuron_num}"]).T
                     df = pd.concat((df, new_row))
                     print("> Done.\nTrial complete!\n")
 
@@ -328,11 +226,11 @@ def main():
                     #Train normal BNN, DNN network with no adversarial training 
                     trained_model_BNN, trained_model_DNN = trainModel(neuron_num, layer_num, x_train, y_train, x_test, y_test)
                     # BNN 
-                    basic_score_BNN, max_diff_BNN, min_diff_BNN, delta_BNN_res, accuracy_BNN = get_results(
+                    max_diff_BNN, min_diff_BNN, delta_BNN_res, accuracy_BNN = get_results(
                         trained_model_BNN, x_test, y_test, epsilon, delta, "BNN", "BNN - Normal")
                     
                     # DNN 
-                    basic_score_DNN, max_diff_DNN, min_diff_DNN, delta_DNN_res, accuracy_DNN = get_results(
+                    max_diff_DNN, min_diff_DNN, delta_DNN_res, accuracy_DNN = get_results(
                         trained_model_DNN, x_test, y_test, epsilon, delta, "DNN", "DNN - Normal")
                     
                     #Create adversarials
@@ -355,25 +253,13 @@ def main():
 
                     #Get results 
                     # BNN
-                    basic_score_BNN_adv, max_diff_BNN_adv, min_diff_BNN_adv, delta_BNN_adv_res, accuracy_BNN_adv = get_results(
+                    max_diff_BNN_adv, min_diff_BNN_adv, delta_BNN_adv_res, accuracy_BNN_adv = get_results(
                         trained_model_BNN_adv, x_test, y_test, epsilon, delta, "BNN", "BNN - With adversarial")
                     # DNN
-                    basic_score_DNN_adv, max_diff_DNN_adv, min_diff_DNN_adv, delta_DNN_adv_res, accuracy_DNN_adv = get_results(
+                    max_diff_DNN_adv, min_diff_DNN_adv, delta_DNN_adv_res, accuracy_DNN_adv = get_results(
                         trained_model_DNN_adv, x_test, y_test, epsilon, delta, "DNN", "DNN - With adversarial")
-                    # Dummy data for debugging
-                    # accuracy_DNN = random.random()
-                    # accuracy_BNN = random.random()
-                    # basic_score_DNN = random.random()
-                    # basic_score_BNN = random.random()
-                    # max_diff_DNN = random.random()
-                    # max_diff_BNN = random.random()
-                    # min_diff_DNN = random.random()
-                    # min_diff_BNN = random.random()
-                    # avrg_diff_DNN = random.random()
-                    # avrg_diff_BNN = random.random()
 
                     new_row = pd.DataFrame([accuracy_BNN, accuracy_BNN_adv, accuracy_DNN, accuracy_DNN_adv,
-                                            basic_score_BNN, basic_score_BNN_adv, basic_score_DNN, basic_score_DNN_adv, 
                                             max_diff_BNN, max_diff_BNN_adv, max_diff_DNN, max_diff_DNN_adv, 
                                             min_diff_BNN, min_diff_BNN_adv, min_diff_DNN, min_diff_DNN_adv, 
                                             delta_BNN_res, delta_BNN_adv_res, delta_DNN_res, delta_DNN_adv_res], index=measurements_training, columns=[f"L{layer_num}N{neuron_num}"]).T

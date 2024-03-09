@@ -4,7 +4,7 @@ import tensorflow as tf
 # from tensorflow import keras
 
 
-def BNN_FGSM(model, inp, loss_fn, eps):
+def BNN_FAIR_FGSM(model, inp, loss_fn, eps):
     """
     model 	-  a keras model
     inp		-  a tensorflow tensor or numpy array

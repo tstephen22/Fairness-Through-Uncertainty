@@ -10,7 +10,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
-from BNN_FGSM import BNN_FGSM
+from BNN_FGSM import BNN_FAIR_FGSM
 
 from tqdm import tqdm
 from tqdm import trange
@@ -138,10 +138,9 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
             # Fair-FGSM training
             elif(int(self.robust_train) == 5):
                 output = tf.zeros(predictions.shape)
-                for _mc_ in range(self.loss_monte_carlo):
-                    adversarial = BNN_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
-                    worst_case = self.model(adversarial)
-                    output = (self.robust_lambda * predictions) + ((1-self.robust_lambda) * worst_case) 
+                adversarial = BNN_FAIR_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
+                worst_case = self.model(adversarial)
+                output = (self.robust_lambda * predictions) + ((1-self.robust_lambda) * worst_case) 
                 loss = self.loss_func(labels, output)
 
 
