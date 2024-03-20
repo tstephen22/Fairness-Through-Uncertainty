@@ -35,7 +35,7 @@ def get_trial_means(df_list):
 def get_labels(label): 
     cmap = 'coolwarm'
     bar_label = '\u03B4\u002A'
-    if(label == "BNN Fairness Score" or label == "BNN Adversary Fairness Score"):
+    if(label == "BNN Fairness Score" or label == "BNN Fair Training Fairness Score"):
         cmap = 'Greens'
         bar_label = 'Threshold score'
     
@@ -139,7 +139,7 @@ def generate_epsilon_plots(df_list, is_regularisation=False):
               "BNN Min Difference", "BNN Avg Diff", 
               "BNN Adversary Fairness Score", "BNN Adversary Max Difference",
               "BNN Adversary Min Difference", "BNN Adversary Avg Diff"]
-    eps = [0.10, 0.15, 0.20]
+    eps = [0.00, 0.05, 0.10, 0.15, 0.20]
     layers = [1, 2, 3, 4, 5]
     neurons = [2, 4, 8, 16, 32, 64]
 
@@ -174,7 +174,7 @@ def generate_epsilon_plots(df_list, is_regularisation=False):
 
 
 def main():
-    eps = ["0.10", "0.15", "0.20"]
+    eps = ["0.00", "0.05", "0.10", "0.15", "0.20"]
     delta = 1
     is_regularisation = True 
     trial_type = "Regularisation" if is_regularisation else "Training"
@@ -185,7 +185,7 @@ def main():
     for epsilon in eps:
         file_names = []
         # Read in all files in the results directory
-        for item in Path(f"./results/temp").iterdir():
+        for item in Path(f"./results/temp/{epsilon}").iterdir():
             if item.is_file():
                 file_names.append(str(item))
 
