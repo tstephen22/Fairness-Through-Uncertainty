@@ -10,6 +10,6 @@
 - `\deepbayes` - Directory containing the modified Deepbayes Python library to include Fair-FGSM as well as our fair training regulariser, which can be viewed at \deepbayes\deepbayes\optimizers\blrvi.py line 139. The original Deepbayes source code can be found [here](https://github.com/matthewwicker/deepbayes).
 - `\data` - Directory containing the Adult dataset. The original dataset can be found [here](https://archive.ics.uci.edu/ml/datasets/adult).
 - `\results` - Directory containing the results of the experimental trials. Results for each epsilon will appear in their respective folder in \results\temp. Results outlined in our paper can be found in \Paper Results. 
-- `\graphs` - Directory containing the visualisations (heat maps, epsilon plots and various metric graphs) of the results. Visualisations and mean results found in the paper can be found in \Paper Results.\Main
+- `\graphs` - Directory containing the visualisations (heat maps, epsilon plots and various metric graphs) of the results. Visualisations and mean results found in the paper can be found in \Paper Results\Main
 
 Trendmous credit to [Alice Doherty](https://github.com/alicedoherty/bayesian-individual-fairness), who's code and research this project is built-upon. 
