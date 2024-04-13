@@ -1,12 +1,12 @@
 # Originally created by Alice Doherty https://github.com/alicedoherty/bayesian-individual-fairness
-# Configured and extended on by Theo Stephens to create an individual fairness regulariser, as specified in https://github.com/tstephen22/Fairness-Through-Awareness-BNN
+# Configured and extended on by Theo Stephens to create an individual fairness regulariser, as specified in https://github.com/tstephen22/Fairness-Through-Uncertainty
 # For installation of DeepBayes see https://stackoverflow.com/questions/23075397/python-how-to-edit-an-installed-package
 import deepbayes.optimizers as optimizers
 from tensorflow import keras
 import tensorflow as tf
 import pandas as pd
 import numpy as np
-from scoring import get_adversarial_examples, get_results, timed 
+from scoring import get_fairness_examples, get_results, timed 
 from sklearn.model_selection import train_test_split
 from datetime import datetime
 from tqdm import tqdm
@@ -256,8 +256,8 @@ def main():
                             trained_model_DNN, x_test, y_test, epsilon, delta, "DNN", "DNN - Normal")
                         
                         #Create adversarials
-                        adversarials_BNN = get_adversarial_examples(trained_model_BNN, x_train, epsilon, "BNN")
-                        adversarials_DNN = get_adversarial_examples(trained_model_DNN, x_train, epsilon, "DNN")
+                        adversarials_BNN = get_fairness_examples(trained_model_BNN, x_train, epsilon, "BNN")
+                        adversarials_DNN = get_fairness_examples(trained_model_DNN, x_train, epsilon, "DNN")
 
                         #Concatenate onto training data 
                         # BNN
