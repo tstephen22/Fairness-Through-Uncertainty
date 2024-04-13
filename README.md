@@ -1,4 +1,4 @@
-# Fairness Through Awareness; fair training methods for Bayesian Neural Networks 
+# Fairness Through Uncertainty; fair training methods for Bayesian Neural Networks 
 
 ## Contents 
 
