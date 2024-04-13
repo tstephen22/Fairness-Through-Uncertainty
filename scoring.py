@@ -35,18 +35,18 @@ def get_fairness_examples(model, test_data, epsilon, type):
     print("Done.")
     return adversarial_examples
 
-def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type):
+def get_fairness_score(x_test_predictions, x_test_fair_examples_predictions, type):
     differences = []
 
     if type == "DNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
+                             x_test_fair_examples_predictions[i][0])
             differences.append(difference)
     elif type == "BNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
+                             x_test_fair_examples_predictions[i][0]).numpy()
             differences.append(difference)
 
     max_diff = max(differences)
@@ -59,18 +59,18 @@ def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type)
 
     return max_diff, min_diff, avrg_diff
 
-def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type):
+def threshold_fairness_score(x_test_predictions, x_test_fair_examples_predictions, delta, type):
     differences = []
 
     if type == "DNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
+                             x_test_fair_examples_predictions[i][0])
             differences.append(difference)
     elif type == "BNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
+                             x_test_fair_examples_predictions[i][0]).numpy()
             differences.append(difference)
 
     max_diff = max(differences)
