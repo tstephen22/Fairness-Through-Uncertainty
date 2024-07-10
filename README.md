@@ -8,8 +8,8 @@ not only accurate but also fair has become ever more crucial.
 
 This paper focuses on individual fairness in Bayesian Neural Networks (BNNs). Individual fairness 
 ensures that similar individuals receive similar outcomes by a model.
-Specifically, we undertake the definition of ε − δ individual fairness. BNNs offer advan-
-tages over deterministic neural networks due to their ability to quantify uncertainty and
+Specifically, we undertake the definition of ε − δ individual fairness. BNNs offer advantages 
+over deterministic neural networks due to their ability to quantify uncertainty and
 effectively handle smaller datasets; a capability that has led to their adoption in critical
 fields such as medicine.
 
