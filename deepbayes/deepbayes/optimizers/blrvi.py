@@ -138,9 +138,12 @@ class VariationalOnlineGuassNewton(optimizer.Optimizer):
             # Fair-FGSM training
             elif(int(self.robust_train) == 5):
                 output = tf.zeros(predictions.shape)
-                adversarial = BNN_FAIR_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
-                worst_case = self.model(adversarial)
-                output = (self.robust_lambda * predictions) + ((1-self.robust_lambda) * worst_case) 
+                # Generate our fair example
+                fair_example = BNN_FAIR_FGSM(self, features[0], self.attack_loss, eps=self.fair_epsilons)
+                # Get the predictive distribution of the fair example
+                fair_example_dist = self.model(fair_example)
+                # Train for fairness 
+                output = (self.robust_lambda * predictions) + ((1-self.robust_lambda) * fair_example_dist) 
                 loss = self.loss_func(labels, output)
 
 

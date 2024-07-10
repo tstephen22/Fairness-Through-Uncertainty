@@ -1,0 +1,1849 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20233.23.1017.0948                               -->
+<workbook original-version='18.1' source-build='2023.3.0 (20233.23.1017.0948)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='f1_regularisation_timed_0.05' inline='true' name='federated.0vdxb2e0crdj9h1e1lhne18qghaa' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='f1_regularisation_timed_0.05' name='textscan.1gpkh651dyu6k31158wok0tavhlr'>
+            <connection class='textscan' directory='C:/Users/theos/OneDrive/Desktop/College/5th year/Thesis/Results/Fairness Regularisation/Results/Timed' filename='f1_regularisation_timed_0.05.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.1gpkh651dyu6k31158wok0tavhlr' name='f1_regularisation_timed_0.05.csv' table='[f1_regularisation_timed_0.05#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='Layer' ordinal='1' />
+            <column datatype='real' name='Neurons' ordinal='2' />
+            <column datatype='real' name='BNNAccuracy' ordinal='3' />
+            <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+            <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+            <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+            <column datatype='real' name='BNNMinDifference' ordinal='7' />
+            <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+            <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+            <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+            <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+            <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+            <column datatype='real' name='BNNRecall' ordinal='13' />
+            <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+            <column datatype='real' name='BNNPrecision' ordinal='15' />
+            <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+            <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+            <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+            <column datatype='real' name='BNNTime' ordinal='19' />
+            <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.1gpkh651dyu6k31158wok0tavhlr' name='f1_regularisation_timed_0.05.csv' table='[f1_regularisation_timed_0.05#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='Layer' ordinal='1' />
+            <column datatype='real' name='Neurons' ordinal='2' />
+            <column datatype='real' name='BNNAccuracy' ordinal='3' />
+            <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+            <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+            <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+            <column datatype='real' name='BNNMinDifference' ordinal='7' />
+            <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+            <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+            <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+            <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+            <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+            <column datatype='real' name='BNNRecall' ordinal='13' />
+            <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+            <column datatype='real' name='BNNPrecision' ordinal='15' />
+            <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+            <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+            <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+            <column datatype='real' name='BNNTime' ordinal='19' />
+            <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot; &quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>F1</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[F1]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>F1</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Layer</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Layer]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>Layer</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Neurons</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Neurons]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>Neurons</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNAccuracy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNAccuracy]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNAccuracy</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingAccuracy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingAccuracy]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingAccuracy</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMaxDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMaxDifference]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNMaxDifference</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMaxDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMaxDifference]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMaxDifference</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMinDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMinDifference]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNMinDifference</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMinDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMinDifference]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMinDifference</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairnessScore</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairnessScore]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairnessScore</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingFairnessScore</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingFairnessScore]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingFairnessScore</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNAvgDiff</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNAvgDiff]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNAvgDiff</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingAvgDiff</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingAvgDiff]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingAvgDiff</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNRecall</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNRecall]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNRecall</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingRecall</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingRecall]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingRecall</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNPrecision</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNPrecision]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNPrecision</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingPrecision</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingPrecision]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingPrecision</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMeanEntropy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMeanEntropy]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNMeanEntropy</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMeanEntropy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMeanEntropy]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMeanEntropy</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNTime</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNTime]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNTime</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingTime</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingTime]</local-name>
+            <parent-name>[f1_regularisation_timed_0.05.csv]</parent-name>
+            <remote-alias>BNNFairTrainingTime</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='BNN Accuracy' datatype='real' name='[BNNAccuracy]' role='measure' type='quantitative' />
+      <column caption='BNN Avg Diff' datatype='real' name='[BNNAvgDiff]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Accuracy' datatype='real' name='[BNNFairTrainingAccuracy]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Avg Diff' datatype='real' name='[BNNFairTrainingAvgDiff]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Fairness Score' datatype='real' name='[BNNFairTrainingFairnessScore]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Max Difference' datatype='real' name='[BNNFairTrainingMaxDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Mean Entropy' datatype='real' name='[BNNFairTrainingMeanEntropy]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Min Difference' datatype='real' name='[BNNFairTrainingMinDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Precision' datatype='real' name='[BNNFairTrainingPrecision]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Recall' datatype='real' name='[BNNFairTrainingRecall]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Time' datatype='real' name='[BNNFairTrainingTime]' role='measure' type='quantitative' />
+      <column caption='BNN Fairness Score' datatype='real' name='[BNNFairnessScore]' role='measure' type='quantitative' />
+      <column caption='BNN Max Difference' datatype='real' name='[BNNMaxDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Mean Entropy' datatype='real' name='[BNNMeanEntropy]' role='measure' type='quantitative' />
+      <column caption='BNN Min Difference' datatype='real' name='[BNNMinDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Precision' datatype='real' name='[BNNPrecision]' role='measure' type='quantitative' />
+      <column caption='BNN Recall' datatype='real' name='[BNNRecall]' role='measure' type='quantitative' />
+      <column caption='BNN Time' datatype='real' name='[BNNTime]' role='measure' type='quantitative' />
+      <column datatype='real' name='[Layer]' role='measure' type='quantitative' />
+      <column datatype='real' name='[Neurons]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='f1_regularisation_timed_0.05.csv' datatype='table' name='[__tableau_internal_object_id__].[f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB]' role='measure' type='quantitative' />
+      <column-instance column='[Layer]' derivation='None' name='[none:Layer:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[BNNFairTrainingFairnessScore]' derivation='Sum' name='[sum:BNNFairTrainingFairnessScore:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[BNNFairTrainingMaxDifference]' derivation='Sum' name='[sum:BNNFairTrainingMaxDifference:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[BNNFairnessScore]' derivation='Sum' name='[sum:BNNFairnessScore:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[BNNMaxDifference]' derivation='Sum' name='[sum:BNNMaxDifference:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Layer]' derivation='Sum' name='[sum:Layer:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Neurons]' derivation='Sum' name='[sum:Neurons:qk]' pivot='key' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[none:Layer:qk]&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk]&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:Layer:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingMaxDifference:qk]&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNMaxDifference:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk]&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairTrainingFairnessScore:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:Neurons:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;Ireland&quot;' />
+      </semantic-values>
+      <datasource-dependencies datasource='federated.0yafatt1j8ffkj1ba6jlk1g87fyz'>
+        <column caption='BNN Fair Training Fairness Score' datatype='real' name='[BNNFairTrainingFairnessScore]' role='measure' type='quantitative' />
+        <column-instance column='[BNNFairTrainingFairnessScore]' derivation='Sum' name='[sum:BNNFairTrainingFairnessScore:qk]' pivot='key' type='quantitative' />
+      </datasource-dependencies>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='f1_regularisation_timed_0.05.csv' id='f1_regularisation_timed_0.05.csv_28D94568AAE74AEDBCBF54B37461EEFB'>
+            <properties context=''>
+              <relation connection='textscan.1gpkh651dyu6k31158wok0tavhlr' name='f1_regularisation_timed_0.05.csv' table='[f1_regularisation_timed_0.05#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+                  <column datatype='string' name='F1' ordinal='0' />
+                  <column datatype='real' name='Layer' ordinal='1' />
+                  <column datatype='real' name='Neurons' ordinal='2' />
+                  <column datatype='real' name='BNNAccuracy' ordinal='3' />
+                  <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+                  <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+                  <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+                  <column datatype='real' name='BNNMinDifference' ordinal='7' />
+                  <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+                  <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+                  <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+                  <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+                  <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+                  <column datatype='real' name='BNNRecall' ordinal='13' />
+                  <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+                  <column datatype='real' name='BNNPrecision' ordinal='15' />
+                  <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+                  <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+                  <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+                  <column datatype='real' name='BNNTime' ordinal='19' />
+                  <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+    <datasource caption='lambda_0.6_eps_0.05_regularisation' inline='true' name='federated.0yafatt1j8ffkj1ba6jlk1g87fyz' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='lambda_0.6_eps_0.05_regularisation' name='textscan.0vjczwu0pskm6112rm3yj0nmuvfe'>
+            <connection class='textscan' directory='C:/Users/theos/OneDrive/Desktop/College/5th year/Thesis/Results/Fairness Regularisation/Charts/lambda_0.6_0.05' filename='lambda_0.6_eps_0.05_regularisation.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.0vjczwu0pskm6112rm3yj0nmuvfe' name='lambda_0.6_eps_0.05_regularisation.csv' table='[lambda_0.6_eps_0.05_regularisation#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='Layer' ordinal='1' />
+            <column datatype='real' name='Neurons' ordinal='2' />
+            <column datatype='real' name='BNNAccuracy' ordinal='3' />
+            <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+            <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+            <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+            <column datatype='real' name='BNNMinDifference' ordinal='7' />
+            <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+            <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+            <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+            <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+            <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+            <column datatype='real' name='BNNRecall' ordinal='13' />
+            <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+            <column datatype='real' name='BNNPrecision' ordinal='15' />
+            <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+            <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+            <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+            <column datatype='real' name='BNNTime' ordinal='19' />
+            <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.0vjczwu0pskm6112rm3yj0nmuvfe' name='lambda_0.6_eps_0.05_regularisation.csv' table='[lambda_0.6_eps_0.05_regularisation#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='Layer' ordinal='1' />
+            <column datatype='real' name='Neurons' ordinal='2' />
+            <column datatype='real' name='BNNAccuracy' ordinal='3' />
+            <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+            <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+            <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+            <column datatype='real' name='BNNMinDifference' ordinal='7' />
+            <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+            <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+            <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+            <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+            <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+            <column datatype='real' name='BNNRecall' ordinal='13' />
+            <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+            <column datatype='real' name='BNNPrecision' ordinal='15' />
+            <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+            <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+            <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+            <column datatype='real' name='BNNTime' ordinal='19' />
+            <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot; &quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>F1</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[F1]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>F1</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Layer</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Layer]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>Layer</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Neurons</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Neurons]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>Neurons</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNAccuracy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNAccuracy]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNAccuracy</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingAccuracy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingAccuracy]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingAccuracy</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMaxDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMaxDifference]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNMaxDifference</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMaxDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMaxDifference]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMaxDifference</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMinDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMinDifference]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNMinDifference</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMinDifference</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMinDifference]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMinDifference</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairnessScore</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairnessScore]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairnessScore</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingFairnessScore</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingFairnessScore]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingFairnessScore</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNAvgDiff</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNAvgDiff]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNAvgDiff</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingAvgDiff</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingAvgDiff]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingAvgDiff</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNRecall</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNRecall]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNRecall</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingRecall</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingRecall]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingRecall</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNPrecision</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNPrecision]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNPrecision</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingPrecision</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingPrecision]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingPrecision</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNMeanEntropy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNMeanEntropy]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNMeanEntropy</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingMeanEntropy</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingMeanEntropy]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingMeanEntropy</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNTime</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNTime]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNTime</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>BNNFairTrainingTime</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[BNNFairTrainingTime]</local-name>
+            <parent-name>[lambda_0.6_eps_0.05_regularisation.csv]</parent-name>
+            <remote-alias>BNNFairTrainingTime</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='BNN Accuracy' datatype='real' name='[BNNAccuracy]' role='measure' type='quantitative' />
+      <column caption='BNN Avg Diff' datatype='real' name='[BNNAvgDiff]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Accuracy' datatype='real' name='[BNNFairTrainingAccuracy]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Avg Diff' datatype='real' name='[BNNFairTrainingAvgDiff]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Fairness Score' datatype='real' name='[BNNFairTrainingFairnessScore]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Max Difference' datatype='real' name='[BNNFairTrainingMaxDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Mean Entropy' datatype='real' name='[BNNFairTrainingMeanEntropy]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Min Difference' datatype='real' name='[BNNFairTrainingMinDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Precision' datatype='real' name='[BNNFairTrainingPrecision]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Recall' datatype='real' name='[BNNFairTrainingRecall]' role='measure' type='quantitative' />
+      <column caption='BNN Fair Training Time' datatype='real' name='[BNNFairTrainingTime]' role='measure' type='quantitative' />
+      <column caption='BNN Fairness Score' datatype='real' name='[BNNFairnessScore]' role='measure' type='quantitative' />
+      <column caption='BNN Max Difference' datatype='real' name='[BNNMaxDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Mean Entropy' datatype='real' name='[BNNMeanEntropy]' role='measure' type='quantitative' />
+      <column caption='BNN Min Difference' datatype='real' name='[BNNMinDifference]' role='measure' type='quantitative' />
+      <column caption='BNN Precision' datatype='real' name='[BNNPrecision]' role='measure' type='quantitative' />
+      <column caption='BNN Recall' datatype='real' name='[BNNRecall]' role='measure' type='quantitative' />
+      <column caption='BNN Time' datatype='real' name='[BNNTime]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='lambda_0.6_eps_0.05_regularisation.csv' datatype='table' name='[__tableau_internal_object_id__].[lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0]' role='measure' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;Ireland&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='lambda_0.6_eps_0.05_regularisation.csv' id='lambda_0.6_eps_0.05_regularisation.csv_C26A15B74FE7443CA3FF6FBF28CD38C0'>
+            <properties context=''>
+              <relation connection='textscan.0vjczwu0pskm6112rm3yj0nmuvfe' name='lambda_0.6_eps_0.05_regularisation.csv' table='[lambda_0.6_eps_0.05_regularisation#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=' '>
+                  <column datatype='string' name='F1' ordinal='0' />
+                  <column datatype='real' name='Layer' ordinal='1' />
+                  <column datatype='real' name='Neurons' ordinal='2' />
+                  <column datatype='real' name='BNNAccuracy' ordinal='3' />
+                  <column datatype='real' name='BNNFairTrainingAccuracy' ordinal='4' />
+                  <column datatype='real' name='BNNMaxDifference' ordinal='5' />
+                  <column datatype='real' name='BNNFairTrainingMaxDifference' ordinal='6' />
+                  <column datatype='real' name='BNNMinDifference' ordinal='7' />
+                  <column datatype='real' name='BNNFairTrainingMinDifference' ordinal='8' />
+                  <column datatype='real' name='BNNFairnessScore' ordinal='9' />
+                  <column datatype='real' name='BNNFairTrainingFairnessScore' ordinal='10' />
+                  <column datatype='real' name='BNNAvgDiff' ordinal='11' />
+                  <column datatype='real' name='BNNFairTrainingAvgDiff' ordinal='12' />
+                  <column datatype='real' name='BNNRecall' ordinal='13' />
+                  <column datatype='real' name='BNNFairTrainingRecall' ordinal='14' />
+                  <column datatype='real' name='BNNPrecision' ordinal='15' />
+                  <column datatype='real' name='BNNFairTrainingPrecision' ordinal='16' />
+                  <column datatype='real' name='BNNMeanEntropy' ordinal='17' />
+                  <column datatype='real' name='BNNFairTrainingMeanEntropy' ordinal='18' />
+                  <column datatype='real' name='BNNTime' ordinal='19' />
+                  <column datatype='real' name='BNNFairTrainingTime' ordinal='20' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 3'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='lambda_0.6_eps_0.05_regularisation' name='federated.0yafatt1j8ffkj1ba6jlk1g87fyz' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0yafatt1j8ffkj1ba6jlk1g87fyz'>
+            <column caption='BNN Fair Training Fairness Score' datatype='real' name='[BNNFairTrainingFairnessScore]' role='measure' type='quantitative' />
+            <column caption='BNN Fairness Score' datatype='real' name='[BNNFairnessScore]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Layer]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Neurons]' role='measure' type='quantitative' />
+            <column-instance column='[Layer]' derivation='None' name='[none:Layer:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Neurons]' derivation='None' name='[none:Neurons:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[BNNFairTrainingFairnessScore]' derivation='Sum' name='[sum:BNNFairTrainingFairnessScore:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[BNNFairnessScore]' derivation='Sum' name='[sum:BNNFairnessScore:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairnessScore:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairTrainingFairnessScore:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+        </panes>
+        <rows>([federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairnessScore:qk] + [federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairTrainingFairnessScore:qk])</rows>
+        <cols>([federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[none:Neurons:ok] / [federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[none:Layer:ok])</cols>
+      </table>
+      <simple-id uuid='{89C7EA3E-4AC9-48C3-9918-FC8630D0D1DA}' />
+    </worksheet>
+    <worksheet name='Sheet 4'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='lambda_0.6_eps_0.05_regularisation' name='federated.0yafatt1j8ffkj1ba6jlk1g87fyz' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0yafatt1j8ffkj1ba6jlk1g87fyz'>
+            <column caption='BNN Fair Training Time' datatype='real' name='[BNNFairTrainingTime]' role='measure' type='quantitative' />
+            <column caption='BNN Time' datatype='real' name='[BNNTime]' role='measure' type='quantitative' />
+            <column-instance column='[BNNFairTrainingTime]' derivation='Sum' name='[sum:BNNFairTrainingTime:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[BNNTime]' derivation='Sum' name='[sum:BNNTime:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNTime:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairTrainingTime:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols>([federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNTime:qk] + [federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[sum:BNNFairTrainingTime:qk])</cols>
+      </table>
+      <simple-id uuid='{97522522-5D7F-4259-80A9-1F467AC20CE6}' />
+    </worksheet>
+    <worksheet name='Threshold fairness score '>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Threshold-Fairness for BNN vs BNN with fair training, epsilion = 0.05
+</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_regularisation_timed_0.05' name='federated.0vdxb2e0crdj9h1e1lhne18qghaa' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0vdxb2e0crdj9h1e1lhne18qghaa'>
+            <column caption='BNN Fair Training Fairness Score' datatype='real' name='[BNNFairTrainingFairnessScore]' role='measure' type='quantitative' />
+            <column caption='BNN Fairness Score' datatype='real' name='[BNNFairnessScore]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Layer]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Neurons]' role='measure' type='quantitative' />
+            <column-instance column='[Layer]' derivation='None' name='[none:Layer:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Neurons]' derivation='None' name='[none:Neurons:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[BNNFairTrainingFairnessScore]' derivation='Sum' name='[sum:BNNFairTrainingFairnessScore:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[BNNFairnessScore]' derivation='Sum' name='[sum:BNNFairnessScore:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk]' field-type='quantitative' max='1.0' min='0.0' range-type='fixed' scope='rows' type='space' />
+            <encoding attr='space' class='0' field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk]' field-type='quantitative' max='1.0' min='0.0' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='stroke-color' id='refline1' value='#75a1c74b' />
+            <format attr='fill-above' id='refline1' value='#00000000' />
+            <format attr='fill-below' id='refline1' value='#00000000' />
+            <format attr='fill-above' id='refline0' value='#00000000' />
+            <format attr='fill-below' id='refline0' value='#00000000' />
+            <format attr='stroke-color' id='refline0' value='#e157594b' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <reference-line axis-column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk]' enable-instant-analytics='true' formula='average' id='refline0' label-type='value' probability='95' scope='per-pane' value-column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk]' z-order='1' />
+            <reference-line axis-column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk]' enable-instant-analytics='true' formula='average' id='refline1' label-type='value' probability='95' scope='per-pane' value-column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk]' z-order='2' />
+          </pane>
+          <pane id='6' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+          <pane id='7' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+        </panes>
+        <rows>([federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairnessScore:qk] + [federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingFairnessScore:qk])</rows>
+        <cols>([federated.0vdxb2e0crdj9h1e1lhne18qghaa].[none:Neurons:ok] / [federated.0vdxb2e0crdj9h1e1lhne18qghaa].[none:Layer:ok])</cols>
+      </table>
+      <simple-id uuid='{DB618B16-AD53-4443-8CBA-9C7CD59052DF}' />
+    </worksheet>
+    <worksheet name='Threshold fairness score (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Threshold-Fairness for BNN vs BNN with fair training, epsilion = 0.05
+</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_regularisation_timed_0.05' name='federated.0vdxb2e0crdj9h1e1lhne18qghaa' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0vdxb2e0crdj9h1e1lhne18qghaa'>
+            <column caption='BNN Fair Training Max Difference' datatype='real' name='[BNNFairTrainingMaxDifference]' role='measure' type='quantitative' />
+            <column caption='BNN Max Difference' datatype='real' name='[BNNMaxDifference]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Layer]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Neurons]' role='measure' type='quantitative' />
+            <column-instance column='[Layer]' derivation='None' name='[none:Layer:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Neurons]' derivation='None' name='[none:Neurons:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[BNNFairTrainingMaxDifference]' derivation='Sum' name='[sum:BNNFairTrainingMaxDifference:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[BNNMaxDifference]' derivation='Sum' name='[sum:BNNMaxDifference:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingMaxDifference:qk]' field-type='quantitative' fold='true' scope='rows' synchronized='true' type='space' />
+            <encoding attr='space' class='0' field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNMaxDifference:qk]' field-type='quantitative' max='1.0' min='0.0' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='stroke-color' id='refline1' value='#75a1c74b' />
+            <format attr='fill-above' id='refline1' value='#00000000' />
+            <format attr='fill-below' id='refline1' value='#00000000' />
+            <format attr='fill-above' id='refline0' value='#00000000' />
+            <format attr='fill-below' id='refline0' value='#00000000' />
+            <format attr='stroke-color' id='refline0' value='#e157594b' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='7' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]' />
+            </encodings>
+          </pane>
+          <pane id='8' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNMaxDifference:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]' />
+            </encodings>
+          </pane>
+          <pane id='9' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingMaxDifference:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNMaxDifference:qk] + [federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNFairTrainingMaxDifference:qk])</rows>
+        <cols>([federated.0vdxb2e0crdj9h1e1lhne18qghaa].[none:Neurons:ok] / [federated.0vdxb2e0crdj9h1e1lhne18qghaa].[none:Layer:ok])</cols>
+      </table>
+      <simple-id uuid='{6E940AB9-E125-45A7-B5B8-C9F028223360}' />
+    </worksheet>
+  </worksheets>
+  <windows saved-dpi-scale-factor='1.5' source-height='75'>
+    <window class='worksheet' name='Threshold fairness score '>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]'>
+          <bucket-selection />
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{CE0D5307-C1E0-4AF6-B521-68785D10C315}' />
+    </window>
+    <window class='worksheet' name='Sheet 3'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.0yafatt1j8ffkj1ba6jlk1g87fyz].[none:Layer:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{59686F68-1E77-4368-8CF6-A41732D174E8}' />
+    </window>
+    <window class='worksheet' name='Threshold fairness score (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='8' param='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <selection-collection>
+          <node-selection select-tuples='false'>
+            <oriented-node-reference orientation='vertical'>
+              <node-reference>
+                <axis>[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[sum:BNNMaxDifference:qk]</axis>
+              </node-reference>
+              <page-reference />
+            </oriented-node-reference>
+          </node-selection>
+        </selection-collection>
+        <highlight field='[federated.0vdxb2e0crdj9h1e1lhne18qghaa].[:Measure Names]'>
+          <bucket-selection />
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{33FF802E-A422-4B70-9406-E37D41224D56}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 4'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{97F4B473-A363-46E7-8E34-A8C3C2077A37}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 3' width='192'>
+      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
+      FfD/Aat+vNOYofoOAAAAAElFTkSuQmCC
+    </thumbnail>
+    <thumbnail height='95' name='Sheet 4' width='192'>
+      iVBORw0KGgoAAAANSUhEUgAAAMAAAABfCAYAAAC+7MiRAAAACXBIWXMAABYlAAAWJQFJUiTw
+      AAAGhklEQVR4nO3cfUxVdRzH8Y/dsIuMBETEZ0Bqik9sPg11C9Pl2AxByynBdLMypk43tqyW
+      NNxoOjerGUuzTZyJSWKYTUapkJEmD8NnTZHrNOAKcsEQ7w04+/WHOPF4FQ7y4L3fz+s/OGfX
+      3/163/ecezjQRymlQCTUC729AKLexABINAZAojEAEo0BkGgMgERjACTai+3tUFxc3BPrIOoV
+      7QYAAJMnT+7udXS5hoYGeHt79/YyDHPVdQOuuXaeApFoHToCzP/kh+5eB1Gv4BGARGMAJBoD
+      INEYAInGAEg0BkCiMQASjQGQaAyARGMAJBoDINEYAInGAEi0Dt0NevDzxd29ji7nivemA667
+      bsA1184jAInWoSMAfy2S3JXb/krkvXv30K9fv95ehmGuum7ANdfOUyASjQGQaAyARGMAJJrb
+      BuBqH8YecNV1A665drcNgKgjGACJxgBINAZAojEAEo0BkGgMgERjACRah+4G1dNulyBjx14U
+      Xm9Ak8kTAWPnYumyKIR6dfXy3INW+QtSUw6hAlORuH05wvXbDcyzsSwH6btycaHaDq2vN4Km
+      LsF7cZPgb+qRp/Jca64uwoHvf8bJsmrYNaCvdxAmRi3EoshX8bJuPg9mDtWOoqKiR79RlatS
+      E5NU2h+Vyt6ilGqyqdI961Vi0h51qaW9R5OoVuVt/lDtzM1SKe9/p0r1mw3M0352p0pKTFVZ
+      F22qSSnVYreoI18kqcTNeaq2Z57Mc6ul4rBKXbVe7Sy8qe42KaVUi7LfvqiyN65SSd+Vqrtt
+      d24zc4OnQA6cOpCNe3NWYsXMwTCbAHj4IjxuHRKCCpD5q7XLanYXjSczkGWOwdsTPJ1sNTLP
+      G8jdV4ighDVYMMYXHgBM5iDMXr0Sc+oP4qfTjp55Qs8lBwoPZMMUsxbLpgyDlwcAmGAeMAbz
+      1yzHmPP7ceTGw33bztxYAI5SFJ0ZiVmRwXj0iOKFqTMnwVpUCibQRmMJ9mQ5sDAuAk7PDo3M
+      01KMvxqn4/WpukcyBWP6DF+UlFyG1g1PwTXUo94G+A/we3yTORBDfGtw29b6tW7mxgKoqkKF
+      3ysIcfLvmIJHIaTiJirk/i/oOHDux72wzo5HpJN5ATA0T4e1ErZRoxDi5Fw/MDgUL938B7e6
+      bO2uZiBGhvSDpdzy+JtAowXXrCEIGtH6tW7mxgK4UwebpyecHczR3we+sKK6xtjS3ZVmOYx9
+      ZdOR8Ebgk3cyMM/6ehvg6Qmzs319fOFbdQvVz75sF2VCWOxShJ7ahq05l1DXDAAaHFVFSN+U
+      jZZFCQ/fhHQz79RVIGqHVomc3ScQFr8Jwbw60zO8wrEsxQ/HdqTho+z6+98zD8Ksd5OxdvyT
+      L08ygG5gPZqO/MAlSBnNV39P0SrzsTXtdwyIWY0tHwyDl4cGR+0V5O3egORzS7EuLszp5zBj
+      p0D9feFnt8PubNudetQhEAEDO7F6d9J4EvsP9cW8tyY5/+DbloF5+vj4AXY7nF7rqa9D3eBB
+      CHiWdbu0q9i/5SD83/kUCbqrQFFr1+G1m19j16nWyelmbuwIMCIEoXdyUW4DgnUf3DTLNZQP
+      HY544W961uO/4VxTBc59vAJ7nWz/ZkUhgKGISUlGlIF5moNHYWjmNZRrEQjTzdhqKcN/w6Mx
+      qDuekCuwluHvhnGI1g8GAOCHsRMCkXn+MjAt/LHXsLEATKMxbty3OJRvQeSCtpfuGlFYUIKR
+      M2LxlI98IgRGJWN7lJMN1hxs+KwS0Y/8JNjAPAPHYqLXRhwrjEVYRJtji2bBiT/rMD1uPMS+
+      9/j4wd90HFfLNISH6qdgw4WzFRg6oXWSutewwR+EmTFt8SL4HEnD9oIqODQAzXU4nbEJGTVz
+      seiJ1/vIOSPzHIF58TNxffdXOHCpDs0ANMd1HN2ahrwhixHr9N1PCPNkxLzpjbxtW3HwTOsc
+      ocFRW46C9C+RVROB2FkP3koenXkfpZR62mMXFxc/9pfheC9QJzg9AtzHe4G6goZ/r+QjMysH
+      Z643oAmAyTMAoRHRiF8wBQEeur1bZ96pAIjcBW+HJtEYAInGAEg0BkCiMQASjQGQaAyARGMA
+      JBoDINEYAInGAEg0BkCiMQASjQGQaAyARGMAJBoDINEYAInGAEg0BkCiMQASjQGQaAyARGMA
+      JBoDINEYAInGAEg0BkCiMQASjQGQaAyARGMAJBoDINEYAInGAEg0BkCiMQASjQGQaAyARPsf
+      TuL83Y0LGPMAAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='192' name='Threshold fairness score ' width='192'>
+      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
+      +v8BH+OF2Pfwa38AAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='192' name='Threshold fairness score (2)' width='192'>
+      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
+      AAAASUVORK5CYII=
+    </thumbnail>
+  </thumbnails>
+</workbook>

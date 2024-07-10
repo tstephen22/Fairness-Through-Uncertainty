@@ -16,8 +16,8 @@ def timed(func):
         return result, end
     return timed_wrapper
 
-def get_adversarial_examples(model, test_data, epsilon, type):
-    print(">>Creating adversarial examples")
+def get_fairness_examples(model, test_data, epsilon, type):
+    print(">>Creating fairness examples")
     epsilons = np.full(100, epsilon)
 
     # Index 58 is the feature for gender (0 for Female, 1 for Male)
@@ -35,18 +35,18 @@ def get_adversarial_examples(model, test_data, epsilon, type):
     print("Done.")
     return adversarial_examples
 
-def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type):
+def get_fairness_score(x_test_predictions, x_test_fair_examples_predictions, type):
     differences = []
 
     if type == "DNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
+                             x_test_fair_examples_predictions[i][0])
             differences.append(difference)
     elif type == "BNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
+                             x_test_fair_examples_predictions[i][0]).numpy()
             differences.append(difference)
 
     max_diff = max(differences)
@@ -59,18 +59,18 @@ def get_fairness_score(x_test_predictions, x_test_adversarial_predictions, type)
 
     return max_diff, min_diff, avrg_diff
 
-def threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type):
+def threshold_fairness_score(x_test_predictions, x_test_fair_examples_predictions, delta, type):
     differences = []
 
     if type == "DNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0])
+                             x_test_fair_examples_predictions[i][0])
             differences.append(difference)
     elif type == "BNN":
         for i in range(len(x_test_predictions)):
             difference = abs(x_test_predictions[i][0] -
-                             x_test_adversarial_predictions[i][0]).numpy()
+                             x_test_fair_examples_predictions[i][0]).numpy()
             differences.append(difference)
 
     max_diff = max(differences)
@@ -125,14 +125,14 @@ def get_mean_predictive_entropy(model, x_test):
 
 
 def get_results(model, x_test, y_test, epsilon, delta, type, display_text):
-    # Get predictions for x_test data (without attack)
+    # Get predictions for x_test data 
     x_test_predictions = model.predict(x_test)
 
-    # Get numpy array of x_test data converted to adversarial examples
-    x_test_adversarial = get_adversarial_examples(model, x_test, epsilon, type)
+    # Get numpy array of x_test data fairness examples
+    x_test_fairness_examples = get_fairness_examples(model, x_test, epsilon, type)
 
-    # Get predictions for x_test_adversarial data (with attack)
-    x_test_adversarial_predictions = model.predict(x_test_adversarial)
+    # Get predictions for x_test_fairness_examples data 
+    x_test_fairness_examples_predictions = model.predict(x_test_fairness_examples)
 
     # Get accuracy of model
     if type == "DNN":
@@ -153,9 +153,9 @@ def get_results(model, x_test, y_test, epsilon, delta, type, display_text):
     print("Precision: ", precision)
     print("Mean predictive entropy: ", mean_entropy)
     
-    thres_score = threshold_fairness_score(x_test_predictions, x_test_adversarial_predictions, delta, type)
+    thres_score = threshold_fairness_score(x_test_predictions, x_test_fairness_examples_predictions, delta, type)
 
     max_diff, min_diff, avrg_diff = get_fairness_score(x_test_predictions,
-                                                       x_test_adversarial_predictions, type)
+                                                       x_test_fairness_examples_predictions, type)
 
     return (max_diff, min_diff, avrg_diff) , thres_score, (accuracy, recall, precision, mean_entropy)
