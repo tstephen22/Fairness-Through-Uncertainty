@@ -6,8 +6,8 @@ As machine learning models become more prevalent in our lives and take on
 critical decision-making roles across various sectors of society, ensuring their decisions are
 not only accurate but also fair has become ever more crucial.
 
-This paper focuses on individual fairness in Bayesian Neural Networks (BNNs). In-
-dividual fairness ensures that similar individuals receive similar outcomes by a model.
+This paper focuses on individual fairness in Bayesian Neural Networks (BNNs). Individual fairness 
+ensures that similar individuals receive similar outcomes by a model.
 Specifically, we undertake the definition of ε − δ individual fairness. BNNs offer advan-
 tages over deterministic neural networks due to their ability to quantify uncertainty and
 effectively handle smaller datasets; a capability that has led to their adoption in critical
@@ -15,10 +15,10 @@ fields such as medicine.
 
 In this paper, we construct a fairness regularisation method for BNNs by transferring
 techniques from adversarial robustness training and employing the Fair-FGSM algorithm
-[17] for generating similar inputs. This approach draws on existing research that high-
-lights the similarity between adversarial robustness and individual fairness definitions.
-The regulariser is designed to be simple, facilitating its integration into existing train-
-ing procedures without extensive modifications. We also introduce a simple metric for
+[17] for generating similar inputs. This approach draws on existing research that highlights 
+the similarity between adversarial robustness and individual fairness definitions.
+The regulariser is designed to be simple, facilitating its integration into existing training 
+procedures without extensive modifications. We also introduce a simple metric for
 measuring and comparing ε − δ individual fairness models in an intuitive manner, the
 Threshold-Fairness metric.
 
